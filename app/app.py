@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
@@ -9,7 +10,10 @@ st.set_page_config(page_title="Customer Churn Prediction", layout="centered")
 st.title("📉 Customer Churn Prediction App")
 
 # Load data
-df = pd.read_csv("/content/drive/MyDrive/WA_Fn-UseC_-Telco-Customer-Churn.csv")
+# Load data (local path)
+data_path = os.path.join(os.path.dirname(__file__), "..", "Data", "WA_Fn-UseC_-Telco-Customer-Churn.csv")
+data_path = os.path.abspath(data_path)
+df = pd.read_csv(data_path)
 df.drop("customerID", axis=1, inplace=True)
 df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
 df.dropna(inplace=True)
